@@ -1,0 +1,125 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
+    
+    <title>E-Commerce</title>
+    
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <a class="navbar-brand" href="/">E-Commerce</a>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      
+                      <div class="collapsible navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button id="cart" data-html=true type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Salut">
+                                Mes achats(0)
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                  </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col">
+                            <input type="search" name="item_name" id="item_name" placeholder="Rechercher un produit.." class="form-control form-control-borderless">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-success" type="submit" >Rechercher</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for product in product_objects  %}
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{product.image.url}}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <div id="nm{{product.id}}" class="card-title">{{product.title}}</div>
+                        <div id="price{{product.id}}"class="card-text">Ar {{product.price}}</div>
+
+                        <a href="/{{product.id}}" class="btn btn-warning">Détail</a>
+                        <button id="{{product.id}}" class="btn atc btn-warning">Panier</button>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <ul class="pagination">
+                    {% if product_objects.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.previous_page_number }}">
+                                Précédent
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ product_objects.number }}">
+                            Courante
+                        </a>
+                    </li>
+
+                    {% if product_objects.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.next_page_number }}">
+                                Suivante
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script src="{% static 'lib/jquery.js' %}" ></script>
+<script src="{% static 'lib/bootstrap.min.js' %}" ></script>
+<script src="{% static 'lib/bootstrap.bundle.min.js' %}" ></script>
+<script src="{% static 'lib/bootstrap.bundle.js' %}" ></script>
+<script src="{% static 'shop/script.js' %}"></script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+   
